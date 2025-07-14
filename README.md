@@ -142,7 +142,7 @@ graph TB
 ![Learning Curve](https://github.com/dona-eric/VeritaAI/blob/master/mlflow_plots/learning_curve_linearsvc.png)
 
 **Courbe ROC-AUC**
-![AUC-ROC](https://github.com/dona-eric/VeritaAI/blob/master/Final_Analysis/roc_curve_linearvc.png)
+![AUC-ROC](https://github.com/dona-eric/VeritaAI/blob/master/mlflow_plots/roc_curve_linearsvc.png)
 
 ## 🛠️ Installation
 
@@ -299,9 +299,9 @@ Vrai       2   4426
 - **Biais** : Possible biais dans les sources d'entraînement
 - **Pas de compréhension sémantique profonde** :
 Les modèles classiques comme les LinearSVC, RandomForest, ou même certains modèles de boosting, ne comprennent pas le contexte global. Ils utilisent principalement :
-- [ ]des mots fréquents
-- [ ]leur cooccurrence
-- [ ]la structure du texte.
+- [ ] des mots fréquents
+- [ ] leur cooccurrence
+- [ ] la structure du texte.
 
 Mais ils ne "comprennent" pas que le journaliste parle de fake news , ce qui est parfaitement légitime dans un article informatif.
 
