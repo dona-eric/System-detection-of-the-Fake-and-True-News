@@ -362,7 +362,7 @@ graph TB
     B --> C[Engine Search]
     C --> D[Engine Comparaison]
     D --> E[Scoring Fiability] <-- E[Sources Fiables]
-    E --> F[Final Result(Prediction)]
+    E --> F[Result]
     F --> G[API Web FastAPI]
     G --> H[Interface Streamlit]
 ```
