@@ -358,7 +358,7 @@ Pour une approche plus structurée et cohérente pour le développement :
 
  ```mermaid
 graph TB
-    A[Text User] --> B[NLP (BERT/DistilBERT)] <-- C[Semantic Comprehension]
+    A[Text User] --> B[DistilBERT/BERT] <-- C[Semantic Comprehension]
     B --> C[Engine Search]
     C --> D[Engine Comparaison]
     D --> E[Scoring Fiability] <-- E[Sources Fiables]
