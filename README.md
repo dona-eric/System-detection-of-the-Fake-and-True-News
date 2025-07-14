@@ -69,7 +69,7 @@ Cette section décrit les étapes clés de la mise en œuvre technique du projet
 
 ```mermaid
 graph TB
-    A[NewsAPI] --> B[Pipeline Python + ORM(SLALCHEMY) + Scheduler]
+    A[NewsAPI] --> B[Python + Scheduler]
     B --> C[Base PostgreSQL Supabase]
     C --> D[Prétraitement & Vectorisation]
     D --> E[Modélisation ML]
