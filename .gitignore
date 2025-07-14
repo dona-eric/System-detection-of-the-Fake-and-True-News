@@ -4,3 +4,4 @@ Dataset/Dataset_initial/
 __pycache__/
 mlartifacts/
 mlruns/
+Dataset/raws/
