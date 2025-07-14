@@ -1,5 +1,5 @@
 import streamlit as st
-import time
+import time, requests
 from pages.home import home_page
 def analyse_page():
     st.markdown("""
@@ -145,14 +145,29 @@ def analyse_page():
     if st.button("Analyser"):
         if texte.strip():
             with st.spinner("Analyse en cours... Veuillez patienter."):
-                time.sleep(2)
-            st.success("Analyse terminée ! Voici le résultat :")
-            st.markdown("---")
-            st.subheader("Verdict de Verita :")
-                # Simulation d'un résultat
-                
-        else:
-            st.warning("Veuillez entrer du texte pour l'analyse.")
+                try:
+                    response = requests.post(
+                        url="http://127.0.0.1:8000/predict",
+                        json={
+                            'text':texte,
+                            'model_name':"model_linearsvc"
+                        }
+                          )
+                    if response.status_code == 200:
+                        result = response.json()
+
+                        st.success("Analyse terminée ! Voici le résultat :")
+                        st.markdown("---")
+                        st.subheader("✅ Résultat de VeritaAI")
+                        st.write(f"**Prédiction :** {'🟥 Fake News' if result['prediction'] == 0 else '🟩 Real News'}")
+                        st.write(f"**Confiance :** {result['confidence']*100:.2f}%")
+                        st.write(f"**Longueur du texte :** {result['text_length']} caractères")
+                        st.write(f"**Modèle utilisé :** {result['model_used']}")
+                    else:
+                        st.error(f"Erreur de l'API : {response.status_code} - {response.text}")
+                    st.markdown("---")
+                except Exception as e:
+                    st.error(f"Erreur lors de l'analyse : {e}")
 
     st.markdown("<br>", unsafe_allow_html=True)
     if st.button("Back to home", key="back_to_home"):

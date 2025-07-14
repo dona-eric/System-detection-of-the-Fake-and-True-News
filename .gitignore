@@ -2,3 +2,5 @@ env_news/
 .env
 Dataset/Dataset_initial/
 __pycache__/
+mlartifacts/
+mlruns/

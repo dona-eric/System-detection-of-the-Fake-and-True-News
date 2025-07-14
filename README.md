@@ -69,7 +69,7 @@ Cette section décrit les étapes clés de la mise en œuvre technique du projet
 
 ```mermaid
 graph TB
-    A[NewsAPI] --> B[Python + Scheduler]
+    A[NewsAPI] --> B[Pipeline Python + ORM(SLALCHEMY) + Scheduler]
     B --> C[Base PostgreSQL Supabase]
     C --> D[Prétraitement & Vectorisation]
     D --> E[Modélisation ML]
@@ -297,6 +297,9 @@ Vrai       2   4426
 - **Contexte** : Classification binaire simplifiée
 - **Données** : Dépendant de la qualité du dataset d'entraînement
 - **Biais** : Possible biais dans les sources d'entraînement
+----
+
+Les limites ne s'arretent pas à ceux cités 
 
 ### 🔄 Améliorations prévues
 
