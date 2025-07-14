@@ -142,7 +142,7 @@ graph TB
 ![Learning Curve](https://github.com/dona-eric/VeritaAI/blob/master/mlflow_plots/learning_curve_linearsvc.png)
 
 **Courbe ROC-AUC**
-![AUC-ROC](https://github.com/dona-eric/VeritaAI/blob/master/Final_Analysis/roc_curve_linearsvc.png)
+![AUC-ROC](https://github.com/dona-eric/VeritaAI/blob/master/Final_Analysis/roc_curve_linearvc.png)
 
 ## 🛠️ Installation
 
@@ -297,9 +297,17 @@ Vrai       2   4426
 - **Contexte** : Classification binaire simplifiée
 - **Données** : Dépendant de la qualité du dataset d'entraînement
 - **Biais** : Possible biais dans les sources d'entraînement
-----
+- **Pas de compréhension sémantique profonde** :
+Les modèles classiques comme les LinearSVC, RandomForest, ou même certains modèles de boosting, ne comprennent pas le contexte global. Ils utilisent principalement :
+- [ ]des mots fréquents
+- [ ]leur cooccurrence
+- [ ]la structure du texte.
 
-Les limites ne s'arretent pas à ceux cités 
+Mais ils ne "comprennent" pas que le journaliste parle de fake news , ce qui est parfaitement légitime dans un article informatif.
+
+- [ ]Déséquilibre du dataset d'entraînement :
+Mon dataset contient beaucoup de fake news au ton sensationnaliste, il est possible que ce type d'article soit trop proche dans le vocabulaire. De plus, le modèle peut ne pas avoir été exposé à des exemples de vrais articles qui parlent de fausses informations.
+----
 
 ### 🔄 Améliorations prévues
 
@@ -322,14 +330,42 @@ Les limites ne s'arretent pas à ceux cités
 #### Phase 2 (Prochaine)
 - [ ] Support multilingue
 - [ ] Analyse de sentiment
-- [ ] Détection de sources
+- [ ] Utilisation des grands modèles de langues LLMs(Bert, Roberta)
 
 #### Phase 3 (Future)
-- [ ] IA explicable (SHAP, LIME)
+- [ ] Mettre en place une architecture RAG multisources
 - [ ] Détection en temps réel
-- [ ] Intégration réseaux sociaux
+- [ ] Intégration réseaux sociaux et divers sources pour plus d'apprentissage
 
 ---
+
+### Architecture du système proposé
+
+Pour une approche plus structurée et cohérente pour le développement :
+
+- [ ] Phase 1 : Fondations sémantiques
+- Encodeur sémantique principal : Commencer avec BERT/RoBERTa fine-tuné pour la compréhension contextuelle des articles. Nous devrons l'entraîner sur des corpus spécialisés dans la détection de nuances sémantiques.
+- Module de segmentation intelligente : Développer un système qui découpe les articles en segments cohérents (claims, arguments, preuves) plutôt qu'en phrases isolées.
+- [ ] Phase 2 : Système de récupération et vérification
+- Base de connaissances de référence : Construire ou intégrer des sources fiables (Wikipedia, bases factuelles, archives journalistiques vérifiées).
+- Module RAG spécialisé : Système de récupération qui trouve les sources pertinentes pour chaque claim identifié dans l'article.
+- Comparateur sémantique : Algorithme qui compare le sens des claims avec les sources de référence, pas seulement la similarité lexicale.
+- [ ] Phase 3 : Raisonnement et classification
+- Moteur de cohérence : Vérifie la cohérence interne de l'article (dates, faits, logique).
+- Système de scoring multidimensionnel : Évalue la crédibilité selon plusieurs critères (sources, cohérence, style, métadonnées).
+
+ Elle se présente sous cette forme (voir diagramme):
+
+ ```mermaid
+graph TB
+    A[Text User] --> B[NLP (BERT/DistilBERT)] <-- C[Semantic Comprehension]
+    B --> C[Engine Search]
+    C --> D[Engine Comparaison]
+    D --> E[Scoring Fiability] <-- E[Sources Fiables]
+    E --> F[Final Result(Prediction)]
+    F --> G[API Web FastAPI]
+    G --> H[Interface Streamlit]
+```
 
 ## 👥 Contribution
 
